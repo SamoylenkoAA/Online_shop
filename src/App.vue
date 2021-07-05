@@ -1,26 +1,36 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <layout-container>
+    <template #header>
+      <header-container />
+    </template>
+    <template #sideBar>
+      <side-bar />
+    </template>
+    <template #body>
+        <router-view />
+    </template>
+  </layout-container>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import LayoutContainer from '@/components/LayoutContainer/Index'
+import HeaderContainer from '@/components/Header/Index'
+import SideBar from '@/components/SideBar/Index'
+import { mapActions } from 'vuex'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    LayoutContainer,
+    HeaderContainer,
+    SideBar
+  },
+  methods: {
+    ...mapActions(['loadingProducts', 'loadingBrands'])
+  },
+  created() {
+    this.loadingBrands()
+    this.loadingProducts()
   }
 }
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
